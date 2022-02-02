@@ -11,9 +11,13 @@ Shuffle and Draw Cards
 
 
 As a user, I can log in and make a account
+
 As a user, I can play blackJack
+
 As a user, I can see what the perfect Strategy is? What is the count and the true count. What the bet spread you should be using.
+
 As a user, I can track to see how well I do compared to other users.
+
 
 
 
