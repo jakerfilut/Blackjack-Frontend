@@ -1,17 +1,7 @@
-// import "./App.css";
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <h1>Create New User</h1>
-//     </div>
-//   );
-// }
-
-// export default App;
-
 import { useState } from "react";
 import "./App.css";
+import Table from "./Components/Blackjack Table/Table";
+import SpeedCounting from "./Components/SpeedCounting";
 const API = "http://localhost:3000/api/v1";
 
 function App() {
@@ -83,7 +73,6 @@ function App() {
   }
 
   function resetProfile() {
-    console.log("test");
     setLoggedInUsername();
     setLoggedInEmail();
   }
@@ -143,12 +132,16 @@ function App() {
       <hr />
 
       {!loggedinUsername ? (
-        <button onClick={getProfile}>Get Profile</button>
+        <>
+          <button onClick={getProfile}>Get Profile{loggedinUsername}</button>
+        </>
       ) : (
         <>
           <div>Username: {loggedinUsername}</div>
           <div>Email: {loggedinEmail}</div>
           <button onClick={resetProfile}>Reset</button>
+          <Table />
+          <SpeedCounting />
         </>
       )}
     </div>

@@ -1,0 +1,11 @@
+/* .HandContainer {
+  display: inline-block;
+} */
+
+.Card__Spacing {
+  display: inline-block;
+}
+
+.Card__image {
+  height: 200px;
+}
