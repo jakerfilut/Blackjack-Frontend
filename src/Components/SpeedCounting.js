@@ -35,7 +35,7 @@ function SpeedCounting() {
           setSingleCard(card);
           if (card.remaining < 4) {
           } else {
-            setTimeout(() => setFlip((flip) => !flip), 50);
+            setTimeout(() => setFlip((flip) => !flip), 10);
 
             if (card.cards[0].code[0] === "2") {
               setCount(count + 1);
@@ -79,12 +79,15 @@ function SpeedCounting() {
 
   return (
     <div>
+      <hr />
       SpeedCounting
       <button onClick={dealDeck}>Start</button>
       <img src={cardImage} />
       <form onSubmit={submitGuess}>
         <input
-          type="text"
+          type="number"
+          min="-3"
+          max="3"
           value={myCount}
           onChange={(e) => setMyCount(e.target.value)}
         />

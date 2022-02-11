@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Betting from "./Betting";
 import DealersHandDisplay from "./DealersHandDisplay";
 import MyHandDisplay from "./MyHandDisplay";
 import "./table.css";
@@ -58,6 +59,9 @@ function Table() {
       setStandded(false);
       // setUpdateMyHand(updateMyHand + 1);
       setUpdateDealer(updateDealer + 1);
+      setMyFirstHand([]);
+      setMySecondHand([]);
+      setSurr(false);
     }
   }
 
@@ -313,11 +317,14 @@ function Table() {
   const [myFirstHand, setMyFirstHand] = useState([]);
   const [mySecondHand, setMySecondHand] = useState([]);
   const [update, setUpdate] = useState(0);
+  const [myFirstHandValue, setMyFirstHandValue] = useState(0);
+  const [mySecondHandValue, setMySecondHandValue] = useState(0);
+  const [myFirstHandSwitch, setMyFirstHandSwitch] = useState(0);
 
   function split() {
     if (handValue.length < 2) {
     } else {
-      if (standded == false) {
+      if (standded == false && handValue[0] == handValue[1]) {
         fetch(drawCard2)
           .then((res) => res.json())
           .then((twoCards) => {
@@ -335,14 +342,138 @@ function Table() {
             const add22 = [myHand[1].code[0], twoCards.cards[1].code[0]];
             setMySecondHand(add22);
             stand();
+            setMyFirstHandSwitch(myFirstHandSwitch + 1);
+            setCardsValue(0);
           });
       }
     }
     setUpdate(update + 1);
   }
 
+  useEffect(() => {
+    if (dealersHandValue.length < 1) {
+    } else {
+      let results = 0;
+      let aceCount = 0;
+      myFirstHand.forEach((card) => {
+        if (card === "A") {
+          results = results + 11;
+          aceCount++;
+        } else if (card === "2") {
+          results = results + 2;
+        } else if (card === "3") {
+          results = results + 3;
+        } else if (card === "4") {
+          results = results + 4;
+        } else if (card === "5") {
+          results = results + 5;
+        } else if (card === "6") {
+          results = results + 6;
+        } else if (card === "7") {
+          results = results + 7;
+        } else if (card === "8") {
+          results = results + 8;
+        } else if (card === "9") {
+          results = results + 9;
+        } else if (card === "0") {
+          results = results + 10;
+        } else if (card === "J") {
+          results = results + 10;
+        } else if (card === "Q") {
+          results = results + 10;
+        } else if (card === "K") {
+          results = results + 10;
+        }
+        while (results > 21 && aceCount > 0) {
+          results = results - 10;
+          aceCount--;
+          setMyFirstHandValue(results);
+        }
+        setMyFirstHandValue(results);
+      });
+    }
+  }, [myFirstHandSwitch]);
+
+  useEffect(() => {
+    if (dealersHandValue.length < 1) {
+    } else {
+      let results = 0;
+      let aceCount = 0;
+      mySecondHand.forEach((card) => {
+        if (card === "A") {
+          results = results + 11;
+          aceCount++;
+        } else if (card === "2") {
+          results = results + 2;
+        } else if (card === "3") {
+          results = results + 3;
+        } else if (card === "4") {
+          results = results + 4;
+        } else if (card === "5") {
+          results = results + 5;
+        } else if (card === "6") {
+          results = results + 6;
+        } else if (card === "7") {
+          results = results + 7;
+        } else if (card === "8") {
+          results = results + 8;
+        } else if (card === "9") {
+          results = results + 9;
+        } else if (card === "0") {
+          results = results + 10;
+        } else if (card === "J") {
+          results = results + 10;
+        } else if (card === "Q") {
+          results = results + 10;
+        } else if (card === "K") {
+          results = results + 10;
+        }
+        while (results > 21 && aceCount > 0) {
+          results = results - 10;
+          aceCount--;
+          setMySecondHandValue(results);
+        }
+        setMySecondHandValue(results);
+      });
+    }
+  }, [myFirstHandSwitch]);
+
+  function double() {
+    if (cardsValue >= 21) {
+      console.log("Busted");
+      setToggle(!toggle);
+    } else {
+      if (standded == false)
+        fetch(drawCard1)
+          .then((res) => res.json())
+          .then((singleCard) => {
+            const newHand = [...myHand, singleCard.cards[0]];
+            setMyHand(newHand);
+            setUpdateValue(updateValue + 1);
+          });
+    }
+    stand();
+  }
+
+  const [surr, setSurr] = useState(false);
+
+  function surrender() {
+    if (standded === false) {
+      fetch(drawCard1)
+        .then((res) => res.json())
+        .then((singleCard) => {
+          const newHand = [...dealersHand, singleCard.cards[0]];
+          setDealersHand(newHand);
+          setStandded(true);
+          setUpdateDealersValue(updateDealersValue + 1);
+        });
+      setSurr(true);
+    }
+  }
+
   return (
     <div>
+      <hr />
       <button onClick={dealCards}>New Shoe</button>
       <button onClick={nextHand}>Next Hand</button>
       <br></br>
@@ -350,12 +481,16 @@ function Table() {
       <br></br>
       {dealersValue}
       <br></br>
+      <Betting />
+      <br></br>
       {cardsValue}
       <br></br>
       <MyHandDisplay
+        surrender={surrender}
+        double={double}
         myHand={myHand}
-        // split1={split1}
-        // split2={split2}
+        myFirstHandValue={myFirstHandValue}
+        mySecondHandValue={mySecondHandValue}
         hitMe={hitMe}
         stand={stand}
         split={split}
