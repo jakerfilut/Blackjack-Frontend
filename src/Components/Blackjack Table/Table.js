@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Betting from "./Betting";
 import DealersHandDisplay from "./DealersHandDisplay";
 import MyHandDisplay from "./MyHandDisplay";
+import Perfect from "./Perfect";
 import "./table.css";
 
 const deckCount =
@@ -31,6 +32,10 @@ function Table() {
 
   const [standded, setStandded] = useState(false);
 
+  const [theCount, setTheCount] = useState(0);
+  const [delearsCount, setDealersCount] = useState(0);
+  const [runningCount, setRunningCount] = useState(0);
+
   const drawCard2 = `https://deckofcardsapi.com/api/deck/${deckID}/draw/?count=2`;
   const drawCard1 = `https://deckofcardsapi.com/api/deck/${deckID}/draw/?count=1`;
 
@@ -40,24 +45,21 @@ function Table() {
       .then((deckid) => {
         setDeckID(deckid.deck_id);
         setHandValue("");
+        setRunningCount(0);
         setDealersHandValue("");
         setStandded(false);
-        // setDealersHandValue("");
-        //Dealer gets 2 cards
         setUpdateDealer(updateDealer + 1);
-        //Player gets 2 cards
-        // setUpdateMyHand(updateMyHand + 1);
       });
   }
 
   function nextHand() {
     if (standded == true) {
+      setRunningCount(runningCount + theCount + delearsCount);
       setMyHand([]);
       setDealersHand([]);
       setHandValue("");
       setDealersHandValue("");
       setStandded(false);
-      // setUpdateMyHand(updateMyHand + 1);
       setUpdateDealer(updateDealer + 1);
       setMyFirstHand([]);
       setMySecondHand([]);
@@ -65,26 +67,19 @@ function Table() {
     }
   }
 
-  //players 2 cards
   useEffect(() => {
-    //If there is no deck.id yet dont deal cards
     if (drawCard2.length < 51) {
     } else {
       fetch(drawCard2)
         .then((res) => res.json())
         .then((myStartingHand) => {
-          //array of players hand
           setMyHand(myStartingHand.cards);
-          // setUpdateDealer(updateDealer + 1);
-          //get all the cards in my hand to a array
           setUpdateValue(updateValue + 1);
         });
     }
   }, [updateMyHand]);
 
-  //dealers 1 cards
   useEffect(() => {
-    //If there is no deck.id yet dont deal cards
     if (drawCard1.length < 51) {
     } else {
       fetch(drawCard1)
@@ -118,7 +113,6 @@ function Table() {
   }
 
   function stand() {
-    console.log("standing");
     setToggle(!toggle);
     setStandded(true);
   }
@@ -182,20 +176,27 @@ function Table() {
         let splittedCards = handValue.split("");
         let results = 0;
         let aceCount = 0;
+        let count = 0;
         splittedCards.forEach((card) => {
           if (card === "A") {
             results = results + 11;
             aceCount++;
+            count--;
           } else if (card === "2") {
             results = results + 2;
+            count++;
           } else if (card === "3") {
             results = results + 3;
+            count++;
           } else if (card === "4") {
             results = results + 4;
+            count++;
           } else if (card === "5") {
             results = results + 5;
+            count++;
           } else if (card === "6") {
             results = results + 6;
+            count++;
           } else if (card === "7") {
             results = results + 7;
           } else if (card === "8") {
@@ -204,12 +205,16 @@ function Table() {
             results = results + 9;
           } else if (card === "0") {
             results = results + 10;
+            count--;
           } else if (card === "J") {
             results = results + 10;
+            count--;
           } else if (card === "Q") {
             results = results + 10;
+            count--;
           } else if (card === "K") {
             results = results + 10;
+            count--;
           }
           while (results > 21 && aceCount > 0) {
             results = results - 10;
@@ -220,24 +225,32 @@ function Table() {
             stand();
           }
           setCardsValue(results);
+          setTheCount(count);
         });
       } else {
         let results = 0;
         let aceCount = 0;
+        let count = 0;
         handValue.forEach((card) => {
           if (card === "A") {
             results = results + 11;
             aceCount++;
+            count--;
           } else if (card === "2") {
             results = results + 2;
+            count++;
           } else if (card === "3") {
             results = results + 3;
+            count++;
           } else if (card === "4") {
             results = results + 4;
+            count++;
           } else if (card === "5") {
             results = results + 5;
+            count++;
           } else if (card === "6") {
             results = results + 6;
+            count++;
           } else if (card === "7") {
             results = results + 7;
           } else if (card === "8") {
@@ -246,12 +259,16 @@ function Table() {
             results = results + 9;
           } else if (card === "0") {
             results = results + 10;
+            count--;
           } else if (card === "J") {
             results = results + 10;
+            count--;
           } else if (card === "Q") {
             results = results + 10;
+            count--;
           } else if (card === "K") {
             results = results + 10;
+            count--;
           }
           while (results > 21 && aceCount > 0) {
             results = results - 10;
@@ -265,6 +282,7 @@ function Table() {
           if (results >= 21) {
             setToggle(!toggle);
           }
+          setTheCount(count);
         });
       }
     }
@@ -275,20 +293,27 @@ function Table() {
     } else {
       let results = 0;
       let aceCount = 0;
+      let count = 0;
       dealersHandValue.forEach((card) => {
         if (card === "A") {
           results = results + 11;
           aceCount++;
+          count--;
         } else if (card === "2") {
           results = results + 2;
+          count++;
         } else if (card === "3") {
           results = results + 3;
+          count++;
         } else if (card === "4") {
           results = results + 4;
+          count++;
         } else if (card === "5") {
           results = results + 5;
+          count++;
         } else if (card === "6") {
           results = results + 6;
+          count++;
         } else if (card === "7") {
           results = results + 7;
         } else if (card === "8") {
@@ -297,12 +322,16 @@ function Table() {
           results = results + 9;
         } else if (card === "0") {
           results = results + 10;
+          count--;
         } else if (card === "J") {
           results = results + 10;
+          count--;
         } else if (card === "Q") {
           results = results + 10;
+          count--;
         } else if (card === "K") {
           results = results + 10;
+          count--;
         }
         while (results > 21 && aceCount > 0) {
           results = results - 10;
@@ -310,6 +339,7 @@ function Table() {
           setDealersValue(results);
         }
         setDealersValue(results);
+        setDealersCount(count);
       });
     }
   }, [handTotal, dealersHandTotal]);
@@ -355,6 +385,7 @@ function Table() {
     } else {
       let results = 0;
       let aceCount = 0;
+      let Count = 0;
       myFirstHand.forEach((card) => {
         if (card === "A") {
           results = results + 11;
@@ -399,6 +430,7 @@ function Table() {
     } else {
       let results = 0;
       let aceCount = 0;
+      let Count = 0;
       mySecondHand.forEach((card) => {
         if (card === "A") {
           results = results + 11;
@@ -481,8 +513,9 @@ function Table() {
       <br></br>
       {dealersValue}
       <br></br>
-      <Betting />
+      <Betting runningCount={runningCount} />
       <br></br>
+      <Perfect />
       {cardsValue}
       <br></br>
       <MyHandDisplay
@@ -496,6 +529,8 @@ function Table() {
         split={split}
       />
       <br></br>
+      {/* The Count:{theCount} */}
+      Running Count: {runningCount}
     </div>
   );
 }

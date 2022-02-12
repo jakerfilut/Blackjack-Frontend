@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Buttons from "./Buttons";
 
 function MyHandDisplay({
   myHand,
@@ -20,11 +21,13 @@ function MyHandDisplay({
 
   return (
     <div className="Hand__Container">
-      <button onClick={hitMe}>Hit me</button>
-      <button onClick={stand}>Stand</button>
-      <button onClick={split}>Split</button>
-      <button onClick={double}>Double</button>
-      <button onClick={surrender}>Surrender</button>
+      <Buttons
+        hitMe={hitMe}
+        stand={stand}
+        split={split}
+        double={double}
+        surrender={surrender}
+      />
       My Hand{mapMyHand}
       <br></br>
       {myFirstHandValue}
