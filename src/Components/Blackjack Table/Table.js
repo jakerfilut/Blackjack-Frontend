@@ -385,21 +385,27 @@ function Table() {
     } else {
       let results = 0;
       let aceCount = 0;
-      let Count = 0;
+      let count = 0;
       myFirstHand.forEach((card) => {
         if (card === "A") {
           results = results + 11;
           aceCount++;
+          count--;
         } else if (card === "2") {
           results = results + 2;
+          count++;
         } else if (card === "3") {
           results = results + 3;
+          count++;
         } else if (card === "4") {
           results = results + 4;
+          count++;
         } else if (card === "5") {
           results = results + 5;
+          count++;
         } else if (card === "6") {
           results = results + 6;
+          count++;
         } else if (card === "7") {
           results = results + 7;
         } else if (card === "8") {
@@ -408,12 +414,16 @@ function Table() {
           results = results + 9;
         } else if (card === "0") {
           results = results + 10;
+          count--;
         } else if (card === "J") {
           results = results + 10;
+          count--;
         } else if (card === "Q") {
           results = results + 10;
+          count--;
         } else if (card === "K") {
           results = results + 10;
+          count--;
         }
         while (results > 21 && aceCount > 0) {
           results = results - 10;
@@ -430,21 +440,27 @@ function Table() {
     } else {
       let results = 0;
       let aceCount = 0;
-      let Count = 0;
+      let count = 0;
       mySecondHand.forEach((card) => {
         if (card === "A") {
           results = results + 11;
           aceCount++;
+          count--;
         } else if (card === "2") {
           results = results + 2;
+          count++;
         } else if (card === "3") {
           results = results + 3;
+          count++;
         } else if (card === "4") {
           results = results + 4;
+          count++;
         } else if (card === "5") {
           results = results + 5;
+          count++;
         } else if (card === "6") {
           results = results + 6;
+          count++;
         } else if (card === "7") {
           results = results + 7;
         } else if (card === "8") {
@@ -453,12 +469,16 @@ function Table() {
           results = results + 9;
         } else if (card === "0") {
           results = results + 10;
+          count--;
         } else if (card === "J") {
           results = results + 10;
+          count--;
         } else if (card === "Q") {
           results = results + 10;
+          count--;
         } else if (card === "K") {
           results = results + 10;
+          count--;
         }
         while (results > 21 && aceCount > 0) {
           results = results - 10;
@@ -515,7 +535,11 @@ function Table() {
       <br></br>
       <Betting runningCount={runningCount} />
       <br></br>
-      <Perfect />
+      <Perfect
+        dealersValue={dealersValue}
+        cardsValue={cardsValue}
+        handValue={handValue}
+      />
       {cardsValue}
       <br></br>
       <MyHandDisplay
