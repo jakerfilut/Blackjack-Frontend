@@ -19,7 +19,7 @@ function Perfect({
     } else {
       if (perfectStrat == myStrat) {
         console.log("Correct Strat");
-        setMessage("Correct");
+        setMessage(`${myStrat} was the Correct`);
         console.log(perfectStrat);
         console.log(myStrat);
       } else {
@@ -34,9 +34,9 @@ function Perfect({
 
   useEffect(() => {
     // console.log("giveValue");
-    if (cardsValue > 21) {
+    if (cardsValue > 21 || myStrat == "Double") {
     } else {
-      if (handValue[0] === "A" || handValue[1] === "A") {
+      if (handValue[0] === "A" || (handValue[1] === "A" && handValue == 2)) {
         if (dealersValue === 2 && cardsValue > 17) {
           setPerfectStrat("Stand");
         } else if (dealersValue === 2 && cardsValue === 17) {
@@ -166,7 +166,7 @@ function Perfect({
           setPerfectStrat("Stand");
         } else if (
           (dealersValue === 10 || dealersValue === 11) &&
-          cardsValue > 4 &&
+          //   cardsValue > 4 &&
           cardsValue < 11
         ) {
           setPerfectStrat("Hit");
