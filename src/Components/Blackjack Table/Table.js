@@ -36,6 +36,11 @@ function Table() {
   const [delearsCount, setDealersCount] = useState(0);
   const [runningCount, setRunningCount] = useState(0);
 
+  const [perfectStrat, setPerfectStrat] = useState("");
+
+  const [strat, updateStrat] = useState(0);
+  const [myStrat, updateMyStrat] = useState("");
+
   const drawCard2 = `https://deckofcardsapi.com/api/deck/${deckID}/draw/?count=2`;
   const drawCard1 = `https://deckofcardsapi.com/api/deck/${deckID}/draw/?count=1`;
 
@@ -49,12 +54,16 @@ function Table() {
         setDealersHandValue("");
         setStandded(false);
         setUpdateDealer(updateDealer + 1);
+        updateMyStrat("");
+        setPerfectStrat("");
       });
   }
 
   function nextHand() {
     if (standded == true) {
       setRunningCount(runningCount + theCount + delearsCount);
+      updateMyStrat("");
+      setPerfectStrat("");
       setMyHand([]);
       setDealersHand([]);
       setHandValue("");
@@ -108,11 +117,13 @@ function Table() {
             const newHand = [...myHand, singleCard.cards[0]];
             setMyHand(newHand);
             setUpdateValue(updateValue + 1);
+            updateMyStrat("Hit");
           });
     }
   }
 
   function stand() {
+    updateMyStrat("Stand");
     setToggle(!toggle);
     setStandded(true);
   }
@@ -289,6 +300,7 @@ function Table() {
   }, [handTotal]);
 
   useEffect(() => {
+    updateStrat(strat + 1);
     if (dealersHandValue.length < 1) {
     } else {
       let results = 0;
@@ -371,6 +383,7 @@ function Table() {
 
             const add22 = [myHand[1].code[0], twoCards.cards[1].code[0]];
             setMySecondHand(add22);
+            updateMyStrat("Split");
             stand();
             setMyFirstHandSwitch(myFirstHandSwitch + 1);
             setCardsValue(0);
@@ -502,6 +515,7 @@ function Table() {
             const newHand = [...myHand, singleCard.cards[0]];
             setMyHand(newHand);
             setUpdateValue(updateValue + 1);
+            updateMyStrat("Double");
           });
     }
     stand();
@@ -518,6 +532,7 @@ function Table() {
           setDealersHand(newHand);
           setStandded(true);
           setUpdateDealersValue(updateDealersValue + 1);
+          updateMyStrat("Surrender");
         });
       setSurr(true);
     }
@@ -536,9 +551,14 @@ function Table() {
       <Betting runningCount={runningCount} />
       <br></br>
       <Perfect
+        perfectStrat={perfectStrat}
+        setPerfectStrat={setPerfectStrat}
         dealersValue={dealersValue}
         cardsValue={cardsValue}
         handValue={handValue}
+        myStrat={myStrat}
+        strat={strat}
+        dealersHandValue={dealersHandValue}
       />
       {cardsValue}
       <br></br>
@@ -555,6 +575,10 @@ function Table() {
       <br></br>
       {/* The Count:{theCount} */}
       Running Count: {runningCount}
+      <br></br>
+      Perfect Strat: {perfectStrat}
+      <br></br>
+      My Strat: {myStrat}
     </div>
   );
 }
