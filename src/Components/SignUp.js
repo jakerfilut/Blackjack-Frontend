@@ -26,40 +26,46 @@ function SignUp() {
   }
 
   return (
-    <div className="App">
-      <h1>Create New User</h1>
+    <div className="intro__wrapper">
+      {/* <div className="logo">Blackjack Trainer</div> */}
+      <h1 className="title">Create New User</h1>
       <form onSubmit={submitRegistration}>
-        <div>
+        <div className="form__field">
           Username:{" "}
           <input
+            className="input__field"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
-        <div>
+        <div className="form__field">
           Email:{" "}
           <input
+            className="input__field"
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div>
+        <div className="form__field">
           Password:{" "}
           <input
+            className="input__field"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit">Register</button>
+        <button className="btn" type="submit">
+          Register
+        </button>
       </form>
       <div>
         Already Have a Account?
         <nav>
           <Link to="/">
-            <button>Sign in</button>
+            <button className="btn">Sign in</button>
           </Link>
         </nav>
       </div>

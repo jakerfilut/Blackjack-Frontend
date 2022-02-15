@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "./LoginPage.css";
 const API = "http://localhost:3000/api/v1";
 
 function LoginPage({
@@ -32,36 +33,40 @@ function LoginPage({
     setLoginUsername("");
     setLoginPassword("");
     setUser(user + 1);
-    console.log("logging in");
   }
 
   return (
-    <div>
-      <h1>Login</h1>
+    <div className="intro__wrapper">
+      <div className="logo">Blackjack Trainer</div>
+      <h1 className="title">Login</h1>
       <form onSubmit={submitLogin}>
-        <div>
-          Username:{" "}
+        <div className="form__field">
+          <div className="promt">Username: </div>
           <input
+            className="input__field"
             type="text"
             value={loginUsername}
             onChange={(e) => setLoginUsername(e.target.value)}
           />
         </div>
-        <div>
-          Password:{" "}
+        <div className="form__field">
+          <div className="promt">Password: </div>
           <input
+            className="input__field"
             type="password"
             value={loginPassword}
             onChange={(e) => setLoginPassword(e.target.value)}
           />
         </div>
-        <button type="submit">Login</button>
+        <button className="btn" type="submit">
+          Login
+        </button>
       </form>
       <div>
-        Dont have a account?
+        <div className="promt">Dont have an account?</div>
         <nav>
           <Link to="/signup">
-            <button>Sign Up</button>
+            <button className="btn">Sign Up</button>
           </Link>
         </nav>
       </div>

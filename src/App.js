@@ -8,6 +8,7 @@ import SignUp from "./Components/SignUp";
 import Navbar from "./Components/NavBar";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Profile from "./Components/Profile";
+import Rules from "./Components/Rules";
 const API = "http://localhost:3000/api/v1";
 
 function App() {
@@ -79,19 +80,6 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
         </Routes>
       </>
-      // <>
-      //   <LoginPage
-      //     setUser={setUser}
-      //     user={user}
-      //     setLoginUsername={setLoginUsername}
-      //     setLoginPassword={setLoginPassword}
-      //     loginUsername={loginUsername}
-      //     loginPassword={loginPassword}
-      //   />
-      //   <Routes>
-      //     <Route path="/signup" element={<SignUp />} />
-      //   </Routes>
-      // </>
     );
 
   return (
@@ -104,11 +92,12 @@ function App() {
         setLoginPassword={setLoginPassword}
       />
       <Routes>
-        <Route path="/home" element={<Homescreen />} />
+        <Route path="/" element={<Homescreen />} />
         {/* <Route path="/signup" element={<SignUp />} /> */}
         <Route path="/blackJack" element={<Table />} />
         <Route path="/counting" element={<SpeedCounting />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/rules" element={<Rules />} />
       </Routes>
       {/* </Router> */}
     </>

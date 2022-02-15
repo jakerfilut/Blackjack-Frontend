@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./SpeedCounting.css";
 
 function SpeedCounting() {
   const [singleDeckID, setSingleDeckID] = useState();
@@ -81,6 +82,17 @@ function SpeedCounting() {
     <div>
       <hr />
       SpeedCounting
+      <div className="chips">
+        <button>
+          <div className="pokerchip blue"></div>
+        </button>
+        <button>
+          <div className="pokerchip red"></div>
+        </button>
+        <button>
+          <div className="pokerchip green"></div>
+        </button>
+      </div>
       <button onClick={dealDeck}>Start</button>
       <img src={cardImage} />
       <form onSubmit={submitGuess}>
