@@ -9,23 +9,26 @@ function SpeedCounting() {
   const [count, setCount] = useState(0);
   const [myCount, setMyCount] = useState("");
   const [right, setRight] = useState("");
+  const [difficulty, setDifficulty] = useState(0);
+  const [game, newGame] = useState(false);
 
   const singleDeck =
     "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1";
   const drawSingleCard = `https://deckofcardsapi.com/api/deck/${singleDeckID}/draw/?count=1`;
 
-  function dealDeck() {
-    fetch(singleDeck)
-      .then((res) => res.json())
-      .then((deckid) => {
-        setSingleDeckID(deckid.deck_id);
-        setSingleCard([]);
-        setCardImage("");
-        setCount(0);
-        setRight("");
-        setFlip(!flip);
-      });
-  }
+  useEffect(() => {
+    if (difficulty !== 0) {
+      fetch(singleDeck)
+        .then((res) => res.json())
+        .then((deckid) => {
+          setSingleDeckID(deckid.deck_id);
+          setSingleCard([]);
+          setCardImage("");
+          setCount(0);
+          setRight("");
+        });
+    }
+  }, [difficulty]);
 
   useEffect(() => {
     if (drawSingleCard.length == 59) {
@@ -36,7 +39,7 @@ function SpeedCounting() {
           setSingleCard(card);
           if (card.remaining < 4) {
           } else {
-            setTimeout(() => setFlip((flip) => !flip), 1000);
+            setTimeout(() => setFlip((flip) => !flip), difficulty);
 
             if (card.cards[0].code[0] === "2") {
               setCount(count + 1);
@@ -65,6 +68,8 @@ function SpeedCounting() {
     }
   }, [flip]);
 
+  console.log(difficulty);
+
   function submitGuess(e) {
     e.preventDefault();
     if (myCount == count) {
@@ -80,21 +85,29 @@ function SpeedCounting() {
 
   return (
     <div>
-      <hr />
-      SpeedCounting
-      <div className="chips">
-        <button>
-          <div className="pokerchip blue"></div>
-        </button>
-        <button>
-          <div className="pokerchip red"></div>
-        </button>
-        <button>
-          <div className="pokerchip green"></div>
-        </button>
+      <h3>
+        After you select your difficulty the dealer will deal out 49 cards. Then
+        you can guess what the count is.
+      </h3>
+      <div className="chips__container">
+        <div className="chips">
+          <div
+            onClick={() => setDifficulty(1500)}
+            className="pokerchip blue"
+          ></div>
+          <div
+            onClick={() => setDifficulty(800)}
+            className="pokerchip red"
+          ></div>
+          <div
+            onClick={() => setDifficulty(250)}
+            className="pokerchip green"
+          ></div>
+        </div>
       </div>
-      <button onClick={dealDeck}>Start</button>
-      <img src={cardImage} />
+      {/* <button onClick={dealDeck}>Start</button> */}
+      <img className="card_image" src={cardImage} />
+      <h3>What is the Count?</h3>
       <form onSubmit={submitGuess}>
         <input
           type="number"

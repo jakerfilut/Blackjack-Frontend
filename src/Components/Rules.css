@@ -1,3 +1,12 @@
+body {
+  margin: none;
+  padding: none;
+}
+
 .rules {
-  margin: 50px 50px;
+  margin: 100px 100px;
+}
+
+.inner-rules {
+  color: rgb(255, 255, 255);
 }

@@ -69,6 +69,14 @@ function rules() {
                 surrender, the house takes half of your bet and returns the
                 other half. This ends your stake in the hand.
               </li>
+              <li>
+                Insurance: If the dealer's face up card is an Ace, players are
+                offered the option of taking "insurance" before the dealer
+                checks the facedown card. Insurance is a side bet that the
+                dealer has Blackjack, and is treated independently of the main
+                wager. It pays 2:1, and players may bet up to half of their
+                initial bet on insurance.
+              </li>
             </ul>
           </div>
           <br />
@@ -105,21 +113,7 @@ function rules() {
           <br />
           <hr />
           <div>
-            Insurance:
-            <br />
-            <div>
-              If the dealer's face up card is an Ace, players are offered the
-              option of taking "insurance" before the dealer checks the facedown
-              card. Insurance is a side bet that the dealer has Blackjack, and
-              is treated independently of the main wager. It pays 2:1, and
-              players may bet up to half of their initial bet on insurance.
-            </div>
-          </div>
-          <br />
-          <hr />
-          <div>
-            Counting Cards:
-            <br />
+            <h2 style={{ color: "#FEDD47" }}>Counting Cards:</h2>
             <div>
               While it does not guarantee the player will win, counting cards
               can provide a mathematical advantage over the dealer. The basic
@@ -183,8 +177,7 @@ function rules() {
             <br />
             <hr />
             <div>
-              Bet Spread:
-              <br />
+              <h2 style={{ color: "#FEDD47" }}>Bet Spread:</h2>
               <div>
                 People much smarter than you and me have determined that a bet
                 spread between 1 and 5 units is the best way to avoid undue

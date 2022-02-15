@@ -31,7 +31,7 @@ function SignUp() {
       <h1 className="title">Create New User</h1>
       <form onSubmit={submitRegistration}>
         <div className="form__field">
-          Username:{" "}
+          <div className="promt">Username: </div>
           <input
             className="input__field"
             type="text"
@@ -40,7 +40,7 @@ function SignUp() {
           />
         </div>
         <div className="form__field">
-          Email:{" "}
+          <div className="promt"> Email: </div>
           <input
             className="input__field"
             type="text"
@@ -49,7 +49,7 @@ function SignUp() {
           />
         </div>
         <div className="form__field">
-          Password:{" "}
+          <div className="promt"> Password: </div>
           <input
             className="input__field"
             type="password"
@@ -62,7 +62,7 @@ function SignUp() {
         </button>
       </form>
       <div>
-        Already Have a Account?
+        <div className="promt">Already Have a Account?</div>
         <nav>
           <Link to="/">
             <button className="btn">Sign in</button>
