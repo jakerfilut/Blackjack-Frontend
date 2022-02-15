@@ -1,61 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
+import Homescreen from "./Components/Homescreen";
 import Table from "./Components/Blackjack Table/Table";
 import SpeedCounting from "./Components/SpeedCounting";
+import LoginPage from "./Components/LoginPage";
+import SignUp from "./Components/SignUp";
+import Navbar from "./Components/NavBar";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Profile from "./Components/Profile";
 const API = "http://localhost:3000/api/v1";
 
 function App() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
   const [loginUsername, setLoginUsername] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
   const [loggedinUsername, setLoggedInUsername] = useState("");
   const [loggedinEmail, setLoggedInEmail] = useState("");
 
-  function submitRegistration(e) {
-    e.preventDefault();
+  const [user, setUser] = useState(0);
 
-    fetch(`${API}/users`, {
-      method: "POST",
-      headers: {
-        Accepts: "application/json",
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ user: { username, email, password } }),
-    })
-      .then((res) => res.json())
-      .then((json) => console.log("GOT SOME", json));
-    setUsername("");
-    setEmail("");
-    setPassword("");
-  }
+  useEffect(() => {
+    setTimeout(() => {
+      fetch(`${API}/profile`, {
+        method: "GET",
+        headers: {
+          Accepts: "application/json",
+          "Content-type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          console.log("got profile:", json);
+          setLoggedInUsername(json.username);
+          setLoggedInEmail(json.email);
+        });
+    }, 250);
+  }, [user]);
 
-  function submitLogin(e) {
-    e.preventDefault();
-
-    const loginData = {
-      user: { username: loginUsername, password: loginPassword },
-    };
-
-    fetch(`${API}/login`, {
-      method: "POST",
-      headers: {
-        Accepts: "application/json",
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(loginData),
-    })
-      .then((res) => res.json())
-      .then((json) => localStorage.setItem("jwt", json.jwt));
-
-    setLoginUsername("");
-    setLoginPassword("");
-  }
-
-  function getProfile() {
+  useEffect(() => {
     fetch(`${API}/profile`, {
       method: "GET",
       headers: {
@@ -70,81 +53,65 @@ function App() {
         setLoggedInUsername(json.username);
         setLoggedInEmail(json.email);
       });
-  }
+    console.log("Looked for user");
+  }, []);
 
-  function resetProfile() {
-    setLoggedInUsername();
-    setLoggedInEmail();
-  }
+  console.log(loggedinUsername);
+  // console.log(loginUsername);
+
+  if (!loggedinUsername)
+    return (
+      <>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <LoginPage
+                setUser={setUser}
+                user={user}
+                setLoginUsername={setLoginUsername}
+                setLoginPassword={setLoginPassword}
+                loginUsername={loginUsername}
+                loginPassword={loginPassword}
+              />
+            }
+          />
+          <Route path="/signup" element={<SignUp />} />
+        </Routes>
+      </>
+      // <>
+      //   <LoginPage
+      //     setUser={setUser}
+      //     user={user}
+      //     setLoginUsername={setLoginUsername}
+      //     setLoginPassword={setLoginPassword}
+      //     loginUsername={loginUsername}
+      //     loginPassword={loginPassword}
+      //   />
+      //   <Routes>
+      //     <Route path="/signup" element={<SignUp />} />
+      //   </Routes>
+      // </>
+    );
 
   return (
-    <div className="App">
-      <h1>Create New User</h1>
-      <form onSubmit={submitRegistration}>
-        <div>
-          Username:{" "}
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div>
-          Email:{" "}
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          Password:{" "}
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit">Register</button>
-      </form>
-
-      <h1>Login</h1>
-      <form onSubmit={submitLogin}>
-        <div>
-          Username:{" "}
-          <input
-            type="text"
-            value={loginUsername}
-            onChange={(e) => setLoginUsername(e.target.value)}
-          />
-        </div>
-        <div>
-          Password:{" "}
-          <input
-            type="password"
-            value={loginPassword}
-            onChange={(e) => setLoginPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
-
-      <hr />
-
-      {!loggedinUsername ? (
-        <>
-          <button onClick={getProfile}>Get Profile{loggedinUsername}</button>
-        </>
-      ) : (
-        <>
-          <div>Username: {loggedinUsername}</div>
-          <div>Email: {loggedinEmail}</div>
-          <button onClick={resetProfile}>Reset</button>
-          <Table />
-          <SpeedCounting />
-        </>
-      )}
-    </div>
+    <>
+      {/* <Router> */}
+      <Navbar
+        setUser={setUser}
+        user={user}
+        setLoginUsername={setLoginUsername}
+        setLoginPassword={setLoginPassword}
+      />
+      <Routes>
+        <Route path="/home" element={<Homescreen />} />
+        {/* <Route path="/signup" element={<SignUp />} /> */}
+        <Route path="/blackJack" element={<Table />} />
+        <Route path="/counting" element={<SpeedCounting />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+      {/* </Router> */}
+    </>
   );
 }
 

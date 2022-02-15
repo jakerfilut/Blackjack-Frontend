@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 const API = "http://localhost:3000/api/v1";
 
 function SignUp() {
@@ -54,6 +55,14 @@ function SignUp() {
         </div>
         <button type="submit">Register</button>
       </form>
+      <div>
+        Already Have a Account?
+        <nav>
+          <Link to="/">
+            <button>Sign in</button>
+          </Link>
+        </nav>
+      </div>
     </div>
   );
 }

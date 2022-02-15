@@ -35,7 +35,7 @@ function SpeedCounting() {
           setSingleCard(card);
           if (card.remaining < 4) {
           } else {
-            setTimeout(() => setFlip((flip) => !flip), 10);
+            setTimeout(() => setFlip((flip) => !flip), 1000);
 
             if (card.cards[0].code[0] === "2") {
               setCount(count + 1);

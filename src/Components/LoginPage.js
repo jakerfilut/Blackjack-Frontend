@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 const API = "http://localhost:3000/api/v1";
 
 function LoginPage({
-  loggedInUsername,
-  setLoggedInUsername,
-  loggedInEmail,
-  setLoggedInEmail,
-  logInUsername,
-  setLogInUsername,
-  logInPassword,
-  setLogInPassword,
+  loginUsername,
+  setLoginUsername,
+  loginPassword,
+  setLoginPassword,
+  user,
+  setUser,
 }) {
-  const [user, updateUser] = useState(0);
+  // const [user, updateUser] = useState(0);
 
   function submitLogin(e) {
     e.preventDefault();
     const loginData = {
-      user: { username: logInUsername, password: logInPassword },
+      user: { username: loginUsername, password: loginPassword },
     };
 
     fetch(`${API}/login`, {
@@ -30,10 +29,10 @@ function LoginPage({
       .then((res) => res.json())
       .then((json) => localStorage.setItem("jwt", json.jwt));
 
-    setLogInUsername("");
-    setLogInPassword("");
-    // updateUser(user + 1);
-    console.log("");
+    setLoginUsername("");
+    setLoginPassword("");
+    setUser(user + 1);
+    console.log("logging in");
   }
 
   return (
@@ -44,22 +43,28 @@ function LoginPage({
           Username:{" "}
           <input
             type="text"
-            value={logInUsername}
-            onChange={(e) => setLogInUsername(e.target.value)}
+            value={loginUsername}
+            onChange={(e) => setLoginUsername(e.target.value)}
           />
         </div>
         <div>
           Password:{" "}
           <input
             type="password"
-            value={logInPassword}
-            onChange={(e) => setLogInPassword(e.target.value)}
+            value={loginPassword}
+            onChange={(e) => setLoginPassword(e.target.value)}
           />
         </div>
         <button type="submit">Login</button>
-
-        <button>Don't have an account? &nbsp; </button>
       </form>
+      <div>
+        Dont have a account?
+        <nav>
+          <Link to="/signup">
+            <button>Sign Up</button>
+          </Link>
+        </nav>
+      </div>
     </div>
   );
 }
