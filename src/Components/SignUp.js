@@ -28,7 +28,7 @@ function SignUp() {
   return (
     <div className="intro__wrapper">
       {/* <div className="logo">Blackjack Trainer</div> */}
-      <h1 className="title">Create New User</h1>
+      <h1 className="title">Sign Up</h1>
       <form onSubmit={submitRegistration}>
         <div className="form__field">
           <div className="promt">Username: </div>
@@ -57,7 +57,7 @@ function SignUp() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button className="btn" type="submit">
+        <button className="create__btn" type="submit">
           Register
         </button>
       </form>
@@ -65,7 +65,7 @@ function SignUp() {
         <div className="promt">Already Have a Account?</div>
         <nav>
           <Link to="/">
-            <button className="btn">Sign in</button>
+            <button className="create__btn">Sign in</button>
           </Link>
         </nav>
       </div>

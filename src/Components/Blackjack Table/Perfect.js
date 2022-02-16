@@ -200,13 +200,7 @@ function Perfect({
     }
   }, [perfStra]);
 
-  return (
-    <div>
-      Perfect
-      <br></br>
-      {message}
-    </div>
-  );
+  return <h1>{message}</h1>;
 }
 
 export default Perfect;

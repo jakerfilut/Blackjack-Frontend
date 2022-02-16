@@ -36,39 +36,49 @@ function LoginPage({
   }
 
   return (
-    <div className="intro__wrapper">
-      <div className="logo">Blackjack Trainer</div>
-      <h1 className="title">Login</h1>
-      <form onSubmit={submitLogin}>
-        <div className="form__field">
-          <div className="promt">Username: </div>
-          <input
-            className="input__field"
-            type="text"
-            value={loginUsername}
-            onChange={(e) => setLoginUsername(e.target.value)}
-          />
+    <div className="login_container">
+      {/* <div className="img__container">
+        <img
+          classname="login__img"
+          // width="946"
+          // height="709.6"
+          src={" Girl.jpg"}
+        />
+      </div> */}
+      <div className="intro__wrapper">
+        <div className="logo">Blackjack Trainer</div>
+        <h1 className="title">Login</h1>
+        <form onSubmit={submitLogin}>
+          <div className="form__field">
+            <div className="promt">Username: </div>
+            <input
+              className="input__field"
+              type="text"
+              value={loginUsername}
+              onChange={(e) => setLoginUsername(e.target.value)}
+            />
+          </div>
+          <div className="form__field">
+            <div className="promt">Password: </div>
+            <input
+              className="input__field"
+              type="password"
+              value={loginPassword}
+              onChange={(e) => setLoginPassword(e.target.value)}
+            />
+          </div>
+          <button className="login__btn" type="submit">
+            Login
+          </button>
+        </form>
+        <div>
+          <div className="promt">Dont have an account?</div>
+          <nav>
+            <Link to="/signup">
+              <button className="login__btn">Sign Up</button>
+            </Link>
+          </nav>
         </div>
-        <div className="form__field">
-          <div className="promt">Password: </div>
-          <input
-            className="input__field"
-            type="password"
-            value={loginPassword}
-            onChange={(e) => setLoginPassword(e.target.value)}
-          />
-        </div>
-        <button className="btn" type="submit">
-          Login
-        </button>
-      </form>
-      <div>
-        <div className="promt">Dont have an account?</div>
-        <nav>
-          <Link to="/signup">
-            <button className="btn">Sign Up</button>
-          </Link>
-        </nav>
       </div>
     </div>
   );

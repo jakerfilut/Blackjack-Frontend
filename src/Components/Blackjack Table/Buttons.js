@@ -3,11 +3,21 @@ import React, { useState } from "react";
 function Buttons({ hitMe, stand, split, double, surrender }) {
   return (
     <div>
-      <button onClick={hitMe}>Hit me</button>
-      <button onClick={stand}>Stand</button>
-      <button onClick={split}>Split</button>
-      <button onClick={double}>Double</button>
-      <button onClick={surrender}>Surrender</button>
+      <button className="hand__btn" onClick={hitMe}>
+        Hit me
+      </button>
+      <button className="hand__btn" onClick={stand}>
+        Stand
+      </button>
+      <button className="hand__btn" onClick={split}>
+        Split
+      </button>
+      <button className="hand__btn" onClick={double}>
+        Double
+      </button>
+      <button className="hand__btn" onClick={surrender}>
+        Surrender
+      </button>
     </div>
   );
 }

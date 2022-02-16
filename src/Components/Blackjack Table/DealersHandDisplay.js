@@ -8,7 +8,12 @@ function DealersHandDisplay({ dealersHand }) {
       </div>
     );
   });
-  return <div className="HandContainer">Dealers Hand{mapDealersHand}</div>;
+  return (
+    <div className="Dealers__Hand__Container">
+      {mapDealersHand}
+      {/* <div>Dealers Hand</div> */}
+    </div>
+  );
 }
 
 export default DealersHandDisplay;

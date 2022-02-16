@@ -26,6 +26,7 @@ function SpeedCounting() {
           setCardImage("");
           setCount(0);
           setRight("");
+          setFlip(!flip);
         });
     }
   }, [difficulty]);
@@ -40,7 +41,7 @@ function SpeedCounting() {
           if (card.remaining < 4) {
           } else {
             setTimeout(() => setFlip((flip) => !flip), difficulty);
-
+            console.log("Level 1");
             if (card.cards[0].code[0] === "2") {
               setCount(count + 1);
             } else if (card.cards[0].code[0] === "3") {
@@ -70,8 +71,7 @@ function SpeedCounting() {
 
   console.log(difficulty);
 
-  function submitGuess(e) {
-    e.preventDefault();
+  useEffect(() => {
     if (myCount == count) {
       console.log("correct");
       setMyCount("");
@@ -81,7 +81,7 @@ function SpeedCounting() {
       setMyCount("");
       setRight(`Sadly that is Wrong. The right answer is ${count} `);
     }
-  }
+  }, [myCount]);
 
   return (
     <div>
@@ -105,20 +105,32 @@ function SpeedCounting() {
           ></div>
         </div>
       </div>
-      {/* <button onClick={dealDeck}>Start</button> */}
       <img className="card_image" src={cardImage} />
       <h3>What is the Count?</h3>
-      <form onSubmit={submitGuess}>
-        <input
-          type="number"
-          min="-3"
-          max="3"
-          value={myCount}
-          onChange={(e) => setMyCount(e.target.value)}
-        />
-      </form>
-      {right}
-      {/* {count} */}
+      <div className="btn__guess_container">
+        <button className="btn__guess" onClick={() => setMyCount(-3)}>
+          -3
+        </button>
+        <button className="btn__guess" onClick={() => setMyCount(-2)}>
+          -2
+        </button>
+        <button className="btn__guess" onClick={() => setMyCount(-1)}>
+          -1
+        </button>
+        <button className="btn__guess" onClick={() => setMyCount(0)}>
+          0
+        </button>
+        <button className="btn__guess" onClick={() => setMyCount(1)}>
+          1
+        </button>
+        <button className="btn__guess" onClick={() => setMyCount(2)}>
+          2
+        </button>
+        <button className="btn__guess" onClick={() => setMyCount(3)}>
+          3
+        </button>
+      </div>
+      <h3>{right}</h3>
     </div>
   );
 }

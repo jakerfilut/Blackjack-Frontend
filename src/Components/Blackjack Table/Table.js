@@ -27,8 +27,8 @@ function Table() {
   const [dealersHandValue, setDealersHandValue] = useState([]);
   const [handTotal, setHandTotal] = useState(0);
 
-  const [dealersValue, setDealersValue] = useState(0);
-  const [cardsValue, setCardsValue] = useState(0);
+  const [dealersValue, setDealersValue] = useState("");
+  const [cardsValue, setCardsValue] = useState("");
 
   const [standded, setStandded] = useState(false);
 
@@ -40,6 +40,8 @@ function Table() {
 
   const [strat, updateStrat] = useState(0);
   const [myStrat, updateMyStrat] = useState("");
+
+  const [response, setResponse] = useState("");
 
   const drawCard2 = `https://deckofcardsapi.com/api/deck/${deckID}/draw/?count=2`;
   const drawCard1 = `https://deckofcardsapi.com/api/deck/${deckID}/draw/?count=1`;
@@ -56,6 +58,7 @@ function Table() {
         setUpdateDealer(updateDealer + 1);
         updateMyStrat("");
         setPerfectStrat("");
+        setResponse("");
       });
   }
 
@@ -73,6 +76,7 @@ function Table() {
       setMyFirstHand([]);
       setMySecondHand([]);
       setSurr(false);
+      setResponse("");
     }
   }
 
@@ -537,18 +541,57 @@ function Table() {
       setSurr(true);
     }
   }
+  const [on, off] = useState(false);
+  const [onn, offf] = useState(false);
+  const [onnn, offff] = useState(false);
 
+  console.log(on);
   return (
     <div>
-      <hr />
-      <button onClick={dealCards}>New Shoe</button>
-      <button onClick={nextHand}>Next Hand</button>
+      <div className="All_Switchy_Containter">
+        <div className="Switch_Container">
+          <h1>Count</h1>
+          <label onChange={() => off(!on)} class="switch">
+            <input type="checkbox" />
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <div className="Switch_Container">
+          <h1>Strategy</h1>
+          <label onChange={() => offf(!onn)} class="switch">
+            <input type="checkbox" />
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <div className="Switch_Container">
+          <h1>Values</h1>
+          <label onChange={() => offff(!onnn)} class="switch">
+            <input type="checkbox" />
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+      <div className="table__btn__container">
+        <button className="table__btn" onClick={dealCards}>
+          New Shoe
+        </button>
+        <button className="table__btn" onClick={nextHand}>
+          Next Hand
+        </button>
+      </div>
       <br></br>
       <DealersHandDisplay dealersHand={dealersHand} />
-      <br></br>
-      {dealersValue}
-      <br></br>
-      <Betting runningCount={runningCount} />
+
+      <h1 id="text" style={{ display: onnn ? "flex" : "none" }}>
+        {dealersValue}
+      </h1>
+
+      <Betting
+        on={on}
+        setResponse={setResponse}
+        response={response}
+        runningCount={runningCount}
+      />
       <br></br>
       <Perfect
         perfectStrat={perfectStrat}
@@ -560,25 +603,24 @@ function Table() {
         strat={strat}
         dealersHandValue={dealersHandValue}
       />
-      {cardsValue}
-      <br></br>
-      <MyHandDisplay
-        surrender={surrender}
-        double={double}
-        myHand={myHand}
-        myFirstHandValue={myFirstHandValue}
-        mySecondHandValue={mySecondHandValue}
-        hitMe={hitMe}
-        stand={stand}
-        split={split}
-      />
-      <br></br>
-      {/* The Count:{theCount} */}
-      Running Count: {runningCount}
-      <br></br>
-      Perfect Strat: {perfectStrat}
-      <br></br>
-      My Strat: {myStrat}
+      <h1 id="text" style={{ display: onnn ? "flex" : "none" }}>
+        {cardsValue}
+      </h1>
+      <h1 id="text" style={{ display: onn ? "flex" : "none" }}>
+        {perfectStrat}
+      </h1>
+      <div className="My__Hand_Container">
+        <MyHandDisplay
+          surrender={surrender}
+          double={double}
+          myHand={myHand}
+          myFirstHandValue={myFirstHandValue}
+          mySecondHandValue={mySecondHandValue}
+          hitMe={hitMe}
+          stand={stand}
+          split={split}
+        />
+      </div>
     </div>
   );
 }

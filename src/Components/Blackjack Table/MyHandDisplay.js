@@ -6,8 +6,8 @@ function MyHandDisplay({
   hitMe,
   stand,
   split,
-  myFirstHandValue,
-  mySecondHandValue,
+  // myFirstHandValue,
+  // mySecondHandValue,
   double,
   surrender,
 }) {
@@ -20,20 +20,22 @@ function MyHandDisplay({
   });
 
   return (
-    <div className="Hand__Container">
-      <Buttons
-        hitMe={hitMe}
-        stand={stand}
-        split={split}
-        double={double}
-        surrender={surrender}
-      />
-      My Hand{mapMyHand}
-      <br></br>
-      {myFirstHandValue}
-      <br></br>
-      {mySecondHandValue}
-      <br></br>
+    <div className="HandContainer">
+      <div className="hand__btn__container">
+        <Buttons
+          hitMe={hitMe}
+          stand={stand}
+          split={split}
+          double={double}
+          surrender={surrender}
+        />
+      </div>
+      <div className="Hand__Cards_Container">{mapMyHand}</div>
+      {/* <br></br> */}
+      {/* {myFirstHandValue} */}
+      {/* <br></br> */}
+      {/* {mySecondHandValue} */}
+      {/* <br></br> */}
     </div>
   );
 }

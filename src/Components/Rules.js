@@ -5,7 +5,7 @@ function rules() {
   return (
     <div>
       <div className="rules">
-        <h1 style={{ color: "#FEDD47" }}>How to Play:</h1>
+        <h1 style={{ color: "#FEDD47" }}>How to Play</h1>
         <div className="inner-rules">
           In Blackjack, players take turns comparing their cards against the
           dealer, but not against other players. The goal is to beat the dealer
@@ -113,7 +113,7 @@ function rules() {
           <br />
           <hr />
           <div>
-            <h2 style={{ color: "#FEDD47" }}>Counting Cards:</h2>
+            <h2 style={{ color: "#FEDD47" }}>Counting Cards</h2>
             <div>
               While it does not guarantee the player will win, counting cards
               can provide a mathematical advantage over the dealer. The basic
@@ -177,7 +177,7 @@ function rules() {
             <br />
             <hr />
             <div>
-              <h2 style={{ color: "#FEDD47" }}>Bet Spread:</h2>
+              <h2 style={{ color: "#FEDD47" }}>Bet Spread</h2>
               <div>
                 People much smarter than you and me have determined that a bet
                 spread between 1 and 5 units is the best way to avoid undue

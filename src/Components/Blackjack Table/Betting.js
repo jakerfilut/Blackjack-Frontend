@@ -1,10 +1,12 @@
 import React, { useState, useEffect, Profiler } from "react";
+import "./Betting.css";
 
-function Betting({ runningCount }) {
+function Betting({ runningCount, response, setResponse, on }) {
   const API = "http://localhost:3000/api/v1";
 
   const [myBet, setMyBet] = useState(5);
   const [correctBet, setCorrectBet] = useState(5);
+  // const [response, setResponse] = useState("");
 
   function placeBet(e) {
     e.preventDefault();
@@ -41,33 +43,46 @@ function Betting({ runningCount }) {
     setCorrectBet(corBet);
 
     if (corBet == myBet) {
-      console.log("correct");
+      setResponse("Correct");
     } else {
-      console.log("wrong");
+      setResponse(`Incorrect. The bet should be ${correctBet}`);
     }
   }
 
   return (
-    <div>
-      <hr />
-      <br></br>
-      How Much Should you bet?
-      <br></br>
-      Your bet: ${myBet}
-      <br></br>
-      Correct bet:{correctBet}
-      <form onSubmit={placeBet}>
-        <input
-          placeholder="Bet"
-          type="number"
-          min="5"
-          max="50"
-          step="5"
-          value={myBet}
-          onChange={(e) => setMyBet(e.target.value)}
-        />
-      </form>
-      <hr />
+    <div className="betting_container">
+      <h1 className="betting_num">${myBet}</h1>
+      <div className="betting_btn_container">
+        <button className="betting_btnn" onClick={() => setMyBet(myBet - 5)}>
+          $5
+        </button>
+        <button className="betting_btnn" onClick={() => setMyBet(myBet - 10)}>
+          $10
+        </button>
+        <button className="betting_btnn" onClick={() => setMyBet(myBet - 25)}>
+          $25
+        </button>
+        <button className="betting_btn" onClick={() => setMyBet(myBet + 5)}>
+          $5
+        </button>
+        <button className="betting_btn" onClick={() => setMyBet(myBet + 10)}>
+          $10
+        </button>
+        <button className="betting_btn" onClick={() => setMyBet(myBet + 25)}>
+          $25
+        </button>
+      </div>
+      <div className="betting_btn_container">
+        <button className="placeBet_btn" onClick={placeBet}>
+          Place Bet
+        </button>
+      </div>
+      <div>
+        <h1>{response}</h1>
+      </div>
+      <div id="text" style={{ display: on ? "block" : "none" }}>
+        <h1>Current Count: {runningCount}</h1>
+      </div>
     </div>
   );
 }
