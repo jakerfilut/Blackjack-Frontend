@@ -62,6 +62,11 @@ function Betting({ runningCount, response, setResponse, on }) {
         <button className="betting_btnn" onClick={() => setMyBet(myBet - 25)}>
           $25
         </button>
+        <div className="betting_btn_container">
+          <button className="placeBet_btn" onClick={placeBet}>
+            Place Bet
+          </button>
+        </div>
         <button className="betting_btn" onClick={() => setMyBet(myBet + 5)}>
           $5
         </button>
@@ -72,16 +77,11 @@ function Betting({ runningCount, response, setResponse, on }) {
           $25
         </button>
       </div>
-      <div className="betting_btn_container">
-        <button className="placeBet_btn" onClick={placeBet}>
-          Place Bet
-        </button>
-      </div>
       <div>
-        <h1>{response}</h1>
+        <h1 className="betting_num">{response}</h1>
       </div>
       <div id="text" style={{ display: on ? "block" : "none" }}>
-        <h1>Current Count: {runningCount}</h1>
+        <h1 className="betting_num">Current Count: {runningCount}</h1>
       </div>
     </div>
   );

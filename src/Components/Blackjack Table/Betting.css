@@ -78,3 +78,8 @@ h2 {
 .betting_container {
   background-color: rgb(0, 99, 8);
 }
+
+.betting_num {
+  /* color: #000; */
+  margin: 0;
+}

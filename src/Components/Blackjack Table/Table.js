@@ -7,14 +7,6 @@ import "./table.css";
 
 const deckCount =
   "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=4";
-//get deck ID from this
-
-// "success": true,
-// "deck_id": "g78ippy1v049",
-// "remaining": 52,
-// "shuffled": true
-
-// const draw 2 cards = `https://deckofcardsapi.com/api/deck/${deckID}/draw/?count=2`
 
 function Table() {
   const [deckID, setDeckID] = useState("");
@@ -293,6 +285,7 @@ function Table() {
           if (results == 21) {
             stand();
           }
+          //if double dont stand
           setCardsValue(results);
           if (results >= 21) {
             setToggle(!toggle);
@@ -545,26 +538,25 @@ function Table() {
   const [onn, offf] = useState(false);
   const [onnn, offff] = useState(false);
 
-  console.log(on);
   return (
     <div>
       <div className="All_Switchy_Containter">
         <div className="Switch_Container">
-          <h1>Count</h1>
+          <h1 classname="h1_fix">Count</h1>
           <label onChange={() => off(!on)} class="switch">
             <input type="checkbox" />
             <span class="slider round"></span>
           </label>
         </div>
         <div className="Switch_Container">
-          <h1>Strategy</h1>
+          <h1 classname="h1_fix">Strategy</h1>
           <label onChange={() => offf(!onn)} class="switch">
             <input type="checkbox" />
             <span class="slider round"></span>
           </label>
         </div>
         <div className="Switch_Container">
-          <h1>Values</h1>
+          <h1 classname="h1_fix">Values</h1>
           <label onChange={() => offff(!onnn)} class="switch">
             <input type="checkbox" />
             <span class="slider round"></span>
@@ -582,8 +574,8 @@ function Table() {
       <br></br>
       <DealersHandDisplay dealersHand={dealersHand} />
 
-      <h1 id="text" style={{ display: onnn ? "flex" : "none" }}>
-        {dealersValue}
+      <h1 className="betting_num" style={{ display: onnn ? "flex" : "none" }}>
+        Dealer: {dealersValue}
       </h1>
 
       <Betting
@@ -594,6 +586,7 @@ function Table() {
       />
       <br></br>
       <Perfect
+        onn={onn}
         perfectStrat={perfectStrat}
         setPerfectStrat={setPerfectStrat}
         dealersValue={dealersValue}
@@ -603,10 +596,8 @@ function Table() {
         strat={strat}
         dealersHandValue={dealersHandValue}
       />
-      <h1 id="text" style={{ display: onnn ? "flex" : "none" }}>
-        {cardsValue}
-      </h1>
-      <h1 id="text" style={{ display: onn ? "flex" : "none" }}>
+
+      <h1 className="betting_num" style={{ display: onn ? "flex" : "none" }}>
         {perfectStrat}
       </h1>
       <div className="My__Hand_Container">
@@ -621,6 +612,9 @@ function Table() {
           split={split}
         />
       </div>
+      <h1 className="betting_num" style={{ display: onnn ? "flex" : "none" }}>
+        Player: {cardsValue}
+      </h1>
     </div>
   );
 }

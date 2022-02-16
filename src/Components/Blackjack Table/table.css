@@ -173,3 +173,8 @@ input:checked + .slider:before {
 .Switch_Container:nth-child(2) {
   margin: 20px;
 }
+
+.h1_fix {
+  text-size-adjust: 10px;
+  color: #000;
+}

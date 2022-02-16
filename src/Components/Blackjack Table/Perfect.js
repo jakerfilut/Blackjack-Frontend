@@ -9,6 +9,7 @@ function Perfect({
   perfectStrat,
   myStrat,
   dealersHandValue,
+  onn,
 }) {
   const [perfStra, updatePerfStra] = useState(0);
   const [message, setMessage] = useState("");
@@ -36,7 +37,8 @@ function Perfect({
     // console.log("giveValue");
     if (cardsValue > 21 || myStrat == "Double") {
     } else {
-      if (handValue[0] === "A" || (handValue[1] === "A" && handValue == 2)) {
+      if (handValue[0] === "A" || handValue[1] === "A") {
+        console.log("Ace");
         if (dealersValue === 2 && cardsValue > 17) {
           setPerfectStrat("Stand");
         } else if (dealersValue === 2 && cardsValue === 17) {
@@ -200,7 +202,7 @@ function Perfect({
     }
   }, [perfStra]);
 
-  return <h1>{message}</h1>;
+  return <h1 className="betting_num">{message}</h1>;
 }
 
 export default Perfect;
