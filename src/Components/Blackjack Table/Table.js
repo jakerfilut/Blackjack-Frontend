@@ -119,6 +119,10 @@ function Table() {
   }
 
   function stand() {
+    if (myStrat == "Double" || myStrat == "Split") {
+      setToggle(!toggle);
+      setStandded(true);
+    }
     updateMyStrat("Stand");
     setToggle(!toggle);
     setStandded(true);
@@ -593,6 +597,7 @@ function Table() {
         cardsValue={cardsValue}
         handValue={handValue}
         myStrat={myStrat}
+        updateMyStrat={updateMyStrat}
         strat={strat}
         dealersHandValue={dealersHandValue}
       />
