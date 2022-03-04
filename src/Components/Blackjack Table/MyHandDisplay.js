@@ -31,11 +31,6 @@ function MyHandDisplay({
         />
       </div>
       <div className="Hand__Cards_Container">{mapMyHand}</div>
-      {/* <br></br> */}
-      {/* {myFirstHandValue} */}
-      {/* <br></br> */}
-      {/* {mySecondHandValue} */}
-      {/* <br></br> */}
     </div>
   );
 }
