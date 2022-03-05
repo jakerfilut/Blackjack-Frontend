@@ -70,15 +70,6 @@ function Navbar({ setLoginPassword, setLoginUsername, user, setUser }) {
                 Blackjack
               </Link>
             </li>
-            {/* <li className="nav-item">
-              <Link
-                to="/profile"
-                className="nav-links"
-                onClick={closeMobileMenu}
-              >
-                <div className="layered">Profile</div>
-              </Link>
-            </li> */}
             <li onClick={handleLogoutClick} className="nav-item">
               <Link className="nav-links" to="/" onClick={closeMobileMenu}>
                 LogOut
